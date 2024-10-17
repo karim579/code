@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Scanner</title>
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <style>
+        #reader {
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Scanner</h1>
+    <div id="reader"></div>
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+            fetch('https://script.google.com/macros/s/AKfycbxbQM8QiLVIasrpRf1e8fJujEC6w6R4dxq42_wI7r1eFRZVZLkqbm4k5GR2ssh16Gsv/exec?q=' + decodedText)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    // يمكن عرض البيانات في الصفحة
+                });
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 }, false);
+        
+        html5QrcodeScanner.render(onScanSuccess);
+    </script>
+</body>
+</html>
